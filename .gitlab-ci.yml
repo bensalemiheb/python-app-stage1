@@ -6,7 +6,7 @@ run_test:
     - make test
 
 build_image:
-  image: docker:20.10.16
+  image: docker:20.10.16-dind
   script:
     - docker build -t test .
   variables:
