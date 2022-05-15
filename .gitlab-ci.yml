@@ -1,0 +1,6 @@
+run_test:
+    image: python
+    before_script:
+        - apt-get update && apt-get install make
+    script: 
+        - make test
