@@ -2,15 +2,15 @@ import json
 
 
 # Test the process API returns JSON results we expect
-def test_api_process(client):
-    resp = client.get("/api/process")
+# def test_api_process(client):
 
-    assert resp.status_code == 200
-    assert resp.headers["Content-Type"] == "application/json"
-    resp_payload = json.loads(resp.data)
-    assert len(resp_payload["processes"]) > 0
-    assert resp_payload["processes"][0]["memory_percent"] > 0
-    assert len(resp_payload["processes"][0]["name"]) > 0
+# resp = client.get("/api/process")
+# assert resp.status_code == 200
+# assert resp.headers["Content-Type"] == "application/json"
+# resp_payload = json.loads(resp.data)
+# assert len(resp_payload["processes"]) > 0
+# assert resp_payload["processes"][0]["memory_percent"] > 0
+# assert len(resp_payload["processes"][0]["name"]) > 0
 
 
 # Test the monitor API returns JSON results we expect
