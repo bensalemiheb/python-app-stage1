@@ -1,6 +1,17 @@
+variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+
+services:
+  - docker:19.03.12-dind
+
 run_test:
-    image: python:3.9-slim-buster
-    before_script:
-        - apt-get update && apt-get install make
-    script: 
-        - make test
+  image: python:3.9-slim-buster
+  before_script:
+    - apt-get update && apt-get install make
+  script: 
+    - make test
+
+build_image:
+  image: docker:19.03.12
+  script:
+    - docker build -t test .
