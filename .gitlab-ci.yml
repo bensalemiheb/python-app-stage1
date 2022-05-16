@@ -5,6 +5,7 @@ variables:
 stages:
   - test
   - build
+  - deploy
 
 run_tests:
   stage: test
@@ -27,3 +28,18 @@ build_image:
   script:
     - docker build -t $IMAGE_NAME:$IMAGE_TAG .
     - docker push $IMAGE_NAME:$IMAGE_TAG
+
+
+deploy:
+  stage: deploy
+  script:
+    - ssh -o StrictHostKeyChecking=no -i $SSH_KEY root@161.35.223.117 "
+        docker login -u $REGISTRY_USER -p $REGISTRY_PASS &&
+        docker stop python-app || true &&
+        docker rm python-app || true &&
+        docker run --name python-app -p 5000:5000 $IMAGE_NAME:$IMAGE_TAG"
+
+
+
+
+
