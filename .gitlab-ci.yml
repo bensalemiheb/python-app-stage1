@@ -1,5 +1,5 @@
 variables:
-  IMAGE_NAME: nanajanashia/demo-app
+  IMAGE_NAME: bensalem0iheb/python-app
   IMAGE_TAG: python-app-1.0
 
 stages:
@@ -25,7 +25,7 @@ build_image:
   variables:
     DOCKER_TLS_CERTDIR: "/certs"
   before_script:
-    - docker login -u $REGISTRY_USER -p $REGISTRY_PASS
+    - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
   script:
     - docker build -t $IMAGE_NAME:$IMAGE_TAG .
     - docker push $IMAGE_NAME:$IMAGE_TAG
@@ -36,7 +36,7 @@ deploy:
     - chmod 400 $SSH_KEY
   script:
     - ssh -o StrictHostKeyChecking=no -i $SSH_KEY root@161.35.223.117 "
-        docker login -u $REGISTRY_USER -p $REGISTRY_PASS &&
+        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD &&
         docker ps -aq | xargs docker stop | xargs docker rm &&
         docker run -d -p 5000:5000 $IMAGE_NAME:$IMAGE_TAG"
 
